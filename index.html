@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body style = "background-color:rgb(48, 52, 80)">
+<link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
+<div class = "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-6">
+<h1 class="text-5xl font-extrabold dark:text-white ">Countdown</h1>
+<a class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+<h3 id="display" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">😶‍🌫️ </h3>
+</a>
+
+<form class="max-w-[8rem] mx-full">
+    <label for="time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> 
+      Set Your timer:
+    </label>
+    <div class="mt-4">
+        <input type="time" id="time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+        min="00:00" max="23:59" value="00:00" required />
+    </div>
+    <div class="mt-4">
+    <button type="button" id="start" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Start</button>
+  </div>
+</form>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () =>{
+  let setTime = document.querySelector("#time");
+  let startButton = document.querySelector('#start');
+  let clockDisplay = document.querySelector("#display");
+
+  let intervalId = null;
+  startButton.addEventListener('click', function(){
+
+  if(intervalId !== null){
+    clearInterval(intervalId);
+  }
+  
+  let [strHour,strMinutes,strSeconds] = setTime.value.split(":");
+  let setHour = Number(strHour);
+  let setMin = Number(strMinutes);
+  let setSec = setMin * 60;
+  
+  intervalId = setInterval(() => {
+  let now = new Date();
+  let currHour = Number(now.getHours());
+  let currMin = Number(now.getMinutes());
+  let currSec = Number(now.getSeconds());
+
+  let Diffhr  = setHour - currHour;
+  let DiffMin = setMin  - currMin;
+  let DiffSec = setSec  - currSec;
+
+  if (DiffMin < 0){
+    DiffMin +=60;
+    Diffhr -= 1;
+  }
+
+  if(DiffSec < 0){
+    DiffSec +=60;
+    DiffMin -=1;
+  }
+
+  if(Diffhr == 0 && DiffSec == 0 && DiffMin == 0){
+    clearInterval(setInterval)
+    clockDisplay.textContent = "Times' Up!⌛"
+  }
+
+    clockDisplay.textContent = 
+    `${String(Diffhr).padStart(2,'0')}h:`+
+    `${String(DiffMin).padStart(2,'0')}m:`+
+    `${String(DiffSec).padStart(2,'0')}s`+
+    `⌛`
+  },1000);
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"/>
+</body>
+</html>
