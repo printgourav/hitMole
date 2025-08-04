@@ -1,3 +1,2 @@
 ## Checkout
-
-https://app.netlify.com/projects/hitthatmole/overview
+https://hitthatmole.netlify.app/
