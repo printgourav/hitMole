@@ -21,7 +21,7 @@
 </div>
 
 <script>
-    const scoreDisplay = document.createElement("div");
+    const scoreDisplay = document.createElement("div");  // Create score element.
     scoreDisplay.style.position = "absolute";
     scoreDisplay.style.top = "20px";
     scoreDisplay.style.left = "20px";
@@ -29,31 +29,34 @@
     scoreDisplay.style.fontSize = "64px";
     scoreDisplay.style.fontWeight = "bold";
     scoreDisplay.innerText = "Score: 0";
-
     document.body.appendChild(scoreDisplay);
+
     const dirtDivs = document.querySelectorAll('.flex > div');
+    
     const randomHoles = Array.from(dirtDivs);
     let score = 0;
 
+    //Update score on basis of click & condition.
     randomHoles.forEach(div => {
         div.addEventListener("click", () => {
-            if(div.classList.contains("hover")){
-                score++;
+            if(div.classList.contains("hover")){ // Update score if div contains hover.
+                score++; //increment score.
             scoreDisplay.innerText = `Score:${score}`;
-            div.classList.remove("hover");
+            div.classList.remove("hover"); // Removal makes updation smooth 
             }
         });
     });
     
-    setInterval(()=>{
-        dirtDivs.forEach(div => {
-            div.classList.remove("hover");
+    setInterval(()=>{   
+        dirtDivs.forEach(div => {  // Updation
+            div.classList.remove("hover"); //clear all
     });
-        const randomIndex = Math.floor(Math.random() * randomHoles.length);
-        const randomHole= randomHoles[randomIndex];
-        randomHole.classList.add("hover");
+        const randomIndex = Math.floor(Math.random() * randomHoles.length); // Random index selector
+        const randomHole= randomHoles[randomIndex]; // Selecting random hole on basis of that index.
+        randomHole.classList.add("hover"); //show mole.
     }, 500);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 </html>
+
